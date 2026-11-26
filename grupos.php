@@ -3,7 +3,6 @@ include "conexion.php";
 
 $mensaje = "";
 
-// ===== Crear un grupo =====
 if (isset($_POST["crear"])) {
     if (!isset($_SESSION["id"])) {
         header("Location: login.php");
@@ -25,11 +24,10 @@ if (isset($_POST["crear"])) {
     } else if ($cupo < 2) {
         $mensaje = "El cupo minimo es de 2 personas.";
     } else {
-        // El que crea el grupo ocupa un lugar, por eso quedan cupo - 1 lugares
+
         $lugares = $cupo - 1;
         mysqli_query($conexion, "INSERT INTO grupos (creador_id, materia_id, tema, fecha, hora, lugar, cupo, lugares) VALUES ($yo, $materia, '$tema', '$fecha', '$hora', '$lugar', $cupo, $lugares)");
 
-        // Lo anoto en su propio grupo
         $nuevo_id = mysqli_insert_id($conexion);
         mysqli_query($conexion, "INSERT INTO inscripciones (grupo_id, usuario_id) VALUES ($nuevo_id, $yo)");
 
@@ -37,7 +35,6 @@ if (isset($_POST["crear"])) {
     }
 }
 
-// ===== Sumarse a un grupo =====
 if (isset($_POST["unirse"])) {
     if (!isset($_SESSION["id"])) {
         header("Location: login.php");
@@ -63,7 +60,6 @@ if (isset($_POST["unirse"])) {
     }
 }
 
-// ===== Datos para mostrar en pantalla =====
 $hoy = date("Y-m-d");
 $grupos = mysqli_query($conexion, "SELECT * FROM grupos WHERE fecha >= '$hoy' ORDER BY fecha, hora");
 $materias = mysqli_query($conexion, "SELECT * FROM materias");
@@ -128,12 +124,10 @@ $materias = mysqli_query($conexion, "SELECT * FROM materias");
 <div class="grid">
 <?php while ($g = mysqli_fetch_assoc($grupos)) {
 
-    // Busco el nombre de la materia
     $materia_id = $g["materia_id"];
     $res = mysqli_query($conexion, "SELECT * FROM materias WHERE id = $materia_id");
     $materia = mysqli_fetch_assoc($res);
 
-    // Veo si el usuario ya esta anotado en este grupo
     $ya_anotado = false;
     if (isset($_SESSION["id"])) {
         $yo = $_SESSION["id"];

@@ -57,7 +57,6 @@ $mis_inscripciones = mysqli_query($conexion, "SELECT * FROM inscripciones WHERE 
 <ul>
 <?php while ($i = mysqli_fetch_assoc($mis_inscripciones)) {
 
-    // Busco los datos del grupo en el que estoy anotado
     $grupo_id = $i["grupo_id"];
     $res = mysqli_query($conexion, "SELECT * FROM grupos WHERE id = $grupo_id");
     $g = mysqli_fetch_assoc($res);

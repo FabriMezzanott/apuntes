@@ -50,17 +50,14 @@ $materias = mysqli_query($conexion, "SELECT * FROM materias");
 <div class="grid">
 <?php while ($a = mysqli_fetch_assoc($apuntes)) {
 
-    // Busco el nombre de la materia de este apunte
     $materia_id = $a["materia_id"];
     $res = mysqli_query($conexion, "SELECT * FROM materias WHERE id = $materia_id");
     $materia = mysqli_fetch_assoc($res);
 
-    // Busco el nombre de quien lo subio
     $autor_id = $a["usuario_id"];
     $res = mysqli_query($conexion, "SELECT * FROM usuarios WHERE id = $autor_id");
     $autor = mysqli_fetch_assoc($res);
 
-    // Veo si el usuario que esta mirando ya voto este apunte
     $ya_voto = false;
     if (isset($_SESSION["id"])) {
         $yo = $_SESSION["id"];

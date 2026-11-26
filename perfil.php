@@ -8,10 +8,8 @@ if (!isset($_SESSION["id"])) {
 
 $yo = $_SESSION["id"];
 
-// Mis apuntes
 $mis_apuntes = mysqli_query($conexion, "SELECT * FROM apuntes WHERE usuario_id = $yo");
 
-// Mis inscripciones (despues busco los datos de cada grupo)
 $mis_inscripciones = mysqli_query($conexion, "SELECT * FROM inscripciones WHERE usuario_id = $yo");
 ?>
 <!DOCTYPE html>

@@ -1,7 +1,6 @@
 <?php
 include "conexion.php";
 
-// Los puntos ya estan guardados en cada usuario: solo pido los 5 con mas puntos
 $ranking = mysqli_query($conexion, "SELECT * FROM usuarios WHERE puntos > 0 ORDER BY puntos DESC LIMIT 5");
 ?>
 <!DOCTYPE html>

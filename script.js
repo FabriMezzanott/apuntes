@@ -1,5 +1,3 @@
-// ===== 1. VALIDAR QUE NO HAYA CAMPOS VACIOS =====
-// Devuelve true si todos los campos obligatorios (required) tienen algo escrito
 function validarFormulario(formulario) {
   var campos = formulario.querySelectorAll("input, select");
 
@@ -12,7 +10,6 @@ function validarFormulario(formulario) {
   return true;
 }
 
-// ===== 2. VALIDAR EL FORMULARIO DE GRUPOS =====
 function validarGrupo(formulario) {
   if (validarFormulario(formulario) == false) {
     return false;
@@ -22,7 +19,6 @@ function validarGrupo(formulario) {
   var hora = formulario.hora.value;
   var cupo = parseInt(formulario.cupo.value);
 
-  // Junto fecha y hora y las comparo con el momento actual
   var fechaGrupo = new Date(fecha + "T" + hora);
   var ahora = new Date();
 
@@ -39,13 +35,11 @@ function validarGrupo(formulario) {
   return true;
 }
 
-// ===== 3. VALIDAR EL FORMULARIO DE APUNTES =====
 function validarApunte(formulario) {
   if (validarFormulario(formulario) == false) {
     return false;
   }
 
-  // Tiene que haber un archivo o un enlace
   var archivo = formulario.archivo.value;
   var enlace = formulario.enlace.value.trim();
 
@@ -57,8 +51,6 @@ function validarApunte(formulario) {
   return true;
 }
 
-// ===== 4. BUSCADOR DINAMICO =====
-// Oculta las tarjetas que no coinciden, sin recargar la pagina
 function filtrarApuntes() {
   var texto = document.getElementById("buscador").value.toLowerCase();
   var materia = document.getElementById("filtro_materia").value;
@@ -80,7 +72,6 @@ function filtrarApuntes() {
     }
   }
 
-  // Muestro un cartel si no quedo ninguna
   if (visibles == 0) {
     document.getElementById("sin_resultados").style.display = "block";
   } else {
@@ -88,7 +79,6 @@ function filtrarApuntes() {
   }
 }
 
-// Solo en la pantalla principal existe el buscador
 var buscador = document.getElementById("buscador");
 if (buscador) {
   buscador.addEventListener("keyup", filtrarApuntes);

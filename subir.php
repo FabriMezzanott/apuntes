@@ -1,7 +1,6 @@
 <?php
 include "conexion.php";
 
-// Si no inicio sesion, lo mando a login
 if (!isset($_SESSION["id"])) {
     header("Location: login.php");
     exit;
@@ -23,7 +22,6 @@ if (isset($_POST["enviar"])) {
     } else if ($_FILES["archivo"]["name"] == "" && $enlace == "") {
         $mensaje = "Tenes que adjuntar un archivo o poner un enlace.";
     } else {
-        // Si eligio un archivo, lo guardo en la carpeta uploads
         if ($_FILES["archivo"]["name"] != "") {
             $extension = strtolower(pathinfo($_FILES["archivo"]["name"], PATHINFO_EXTENSION));
             if ($extension == "pdf" || $extension == "jpg" || $extension == "jpeg" || $extension == "png") {
@@ -37,7 +35,6 @@ if (isset($_POST["enviar"])) {
         if ($mensaje == "") {
             mysqli_query($conexion, "INSERT INTO apuntes (usuario_id, materia_id, titulo, descripcion, anio, archivo, enlace) VALUES ($usuario_id, $materia, '$titulo', '$descripcion', $anio, '$nombre_archivo', '$enlace')");
 
-            // Le sumo 1 apunte y 2 puntos al usuario (para el ranking)
             mysqli_query($conexion, "UPDATE usuarios SET apuntes_subidos = apuntes_subidos + 1, puntos = puntos + 2 WHERE id = $usuario_id");
 
             header("Location: index.php");
